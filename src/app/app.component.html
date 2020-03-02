@@ -1,7 +1,29 @@
 <header>
-  <h1>WHO'S HERE?</h1>
+  <mat-toolbar  fxLayout="row" fxLayoutAlign="space-between center">
+    <h1 routerLink="/">Weather App</h1>
+    <mat-button-toggle-group #group="matButtonToggleGroup">
+      <mat-button-toggle r
+      routerLinkActive 
+      #rla="routerLinkActive" 
+      [checked]="rla.isActive" 
+      aria-label="Home" 
+      [routerLink]="'/'"
+      [routerLinkActiveOptions]="{ exact: true }">
+      Home
+      </mat-button-toggle>
+      <mat-button-toggle routerLinkActive 
+      #rla2="routerLinkActive" 
+      [checked]="rla2.isActive" 
+      aria-label="Favorite" 
+      [routerLink]="'/favorites'">
+      Favorites <mat-icon aria-hidden="false" aria-label="favorite">favorite</mat-icon>
+      </mat-button-toggle>
+      </mat-button-toggle-group>
+  </mat-toolbar>
 </header>
+
 <main>
   <router-outlet></router-outlet>
 </main>
-<footer>Created with &#10084;</footer>
+
+<footer><div>Created with &#10084;</div></footer>

@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: MainComponent },
+  { path: '', pathMatch: 'full', component: MainComponent },
   { path: 'favorites', component: FavoriteComponent },
   { path: '**', component: NotFoundComponent }
 ];
