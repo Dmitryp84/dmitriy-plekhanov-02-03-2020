@@ -8,6 +8,8 @@ import { FavoriteComponent } from './pages/favorite/favorite.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CurrentWeatherComponent } from './commonComponents/current-weather/current-weather.component';
 import { OneDayWeatherComponent } from './commonComponents/one-day-weather/one-day-weather.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import { OneDayWeatherComponent } from './commonComponents/one-day-weather/one-d
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
