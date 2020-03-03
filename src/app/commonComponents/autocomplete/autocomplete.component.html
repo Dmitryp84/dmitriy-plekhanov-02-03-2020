@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>Start typing to find a city</mat-label>
+    <input type="text" matInput [formControl]="inputControl" [matAutocomplete]="auto">
+</mat-form-field>
+  
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelect.emit($event.option.value)" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of (items | async)" [value]="option" >{{option.LocalizedName}} | {{option.Country.LocalizedName}}</mat-option>
+  </mat-autocomplete>
