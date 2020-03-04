@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Observable} from 'rxjs';
 import { 
   filter,
@@ -22,12 +22,13 @@ export class AutocompleteComponent implements OnInit {
   onSelect: EventEmitter<ILocation> = new EventEmitter(); 
 
   items: Observable<ILocation[]>;
-  inputControl = new FormControl();
-
+  inputControl = new FormControl('', Validators.pattern('[a-zA-Z \-]*'));
+  
   constructor(private weatherService: WeatherService) {
     this.items = this.inputControl.valueChanges.pipe(
       startWith(''),
       filter( (s) => (s.length > 2)),
+      filter( () => this.inputControl.valid),
       debounceTime(800),
       distinctUntilChanged(),
       switchMap((s: string) => {
