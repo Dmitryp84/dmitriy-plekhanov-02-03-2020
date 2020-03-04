@@ -2,6 +2,7 @@ import { ILocation, ICurrentConditionShort, IForecastShort } from '@interfaces/w
 import { Observable, of } from 'rxjs';
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class WeatherService {
@@ -216,13 +217,13 @@ constructor(private http: HttpClient,
     return this.http.get<any[]>(url);
   }
 
-  getCurrent(key: number) : Observable<ICurrentConditionShort[]> {
-    return of (this.currentWeather);
+  getCurrent(key: string) : Observable<ICurrentConditionShort> {
+    return of (this.currentWeather).pipe(map(date => date[0]));
     const url = `/currentconditions/v1/${key}?${this.apiKey}`;
-    return this.http.get<ICurrentConditionShort[]>(url);
+    return this.http.get<ICurrentConditionShort[]>(url).pipe(map(date => date[0]));
   }
 
-  getForecasts(key: number) : Observable<IForecastShort> {
+  getForecasts(key: string) : Observable<IForecastShort> {
     return of (this.forecast);
     const url = `/forecasts/v1/daily/5day/{key}?apikey=${this.apiKey}`;
     return this.http.get<IForecastShort>(url);
