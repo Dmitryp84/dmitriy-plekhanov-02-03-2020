@@ -25,7 +25,6 @@ import {selectFavorites} from '../selectors/location.selector';
             map(action => action.payload),
             withLatestFrom(this.store.pipe(select(selectFavorites))),
             switchMap( ([location, favorites]) => {
-                console.log('favorite');
                 favorites = Object.assign({}, favorites, {[location.Key]: location})
                 if(this.storageService.set('favorites', favorites))
                     return of (new AddFavoriteSuccess(favorites))
@@ -61,20 +60,21 @@ import {selectFavorites} from '../selectors/location.selector';
             ofType<SetDefaultLocation>(ELocationActions.SetDefaultLocation),
             switchMap( () => {
                 return of (new SetLocation({
-                    Version: 1,
-                    Key: "323903",
-                    Type: "City",
-                    Rank: 21,
-                    LocalizedName: "Kharkiv",
-                    Country: {
-                      ID: "UA",
-                      LocalizedName: "Ukraine"
+                    Version:1,
+                    Key:"215854",
+                    Type:"City",
+                    Rank:31,
+                    LocalizedName:"Tel Aviv",
+                    Country:{
+                        ID:"IL",
+                        LocalizedName:"Israel"
                     },
-                    AdministrativeArea: {
-                      ID: "63",
-                      LocalizedName: "Kharkiv"
+                    AdministrativeArea:{
+                        ID:"TA",
+                        LocalizedName:"Tel Aviv"
                     }
-                  }))
+                })
+                )
             })
         );
 

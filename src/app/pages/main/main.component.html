@@ -27,11 +27,11 @@
       </div>
     
       <mat-card-content fxLayout="row" fxLayoutAlign="center">
-        <h1 class="mat-display-3">{{observables.currentCondition.WeatherText}}</h1>
+        <h1 class="mat-display-3">{{observables.currentCondition?.WeatherText}}</h1>
       </mat-card-content>
       <mat-card-actions fxLayout="row" fxLayoutAlign="space-between" fxLayout.xs="column">
         <app-one-day-weather fxFlex="18%" fxFlex.xs="100%"
-        *ngFor="let forecast of (fiveDayForecast$ | async).DailyForecasts" 
+        *ngFor="let forecast of (fiveDayForecast$ | async)?.DailyForecasts" 
         [forecast]="forecast"></app-one-day-weather>
       </mat-card-actions>
   </mat-card>

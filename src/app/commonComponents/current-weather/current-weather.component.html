@@ -1,5 +1,5 @@
 
-<mat-card>
+<mat-card *ngIf="condition && location">
     <img src="{{getIconLink(condition.WeatherIcon)}}" alt="{{condition.WeatherText}}">
 
     <mat-card-content>
@@ -8,6 +8,6 @@
         <div class="mat-h3">{{condition.Temperature.Metric.Value}} {{condition.Temperature.Metric.Unit}}</div>
       
     </mat-card-content>
-  </mat-card>
+ </mat-card>
 
 

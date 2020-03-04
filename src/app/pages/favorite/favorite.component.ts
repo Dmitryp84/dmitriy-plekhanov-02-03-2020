@@ -27,7 +27,7 @@ export class FavoriteComponent implements OnInit {
   ngOnInit(): void {
     this.favorites$ = this.store.pipe(
       select(selectFavorites),
-      map(data => Object.values(data))
+      map(data => { if(data) return Object.values(data); return [] })
       );
   }
 
