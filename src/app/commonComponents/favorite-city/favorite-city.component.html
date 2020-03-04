@@ -1,0 +1,7 @@
+<div (click)="onSelect()">
+{{location.LocalizedName}}
+{{currentCondition.Temperature.Metric.Value}} {{currentCondition.Temperature.Metric.Unit}}
+<br>
+{{currentCondition.WeatherText}}
+</div>
+<div (click)="onDelete()">X</div>

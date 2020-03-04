@@ -1,6 +1,20 @@
 <p>main works!</p>
 <app-autocomplete (onSelect)="onSelect($event)"></app-autocomplete>
 
-<app-current-weather></app-current-weather>
+<app-current-weather [condition]="currentCondition$ | async" [location]="currentLocation$ | async"></app-current-weather>
 
-<app-one-day-weather *ngFor="let i of [0,1,2,3,4]"></app-one-day-weather>
+<h1>{{(currentCondition$ | async).WeatherText}}</h1>
+
+<ng-container *ngIf="(currentLocation$ | async) as loc">
+    
+<div *ngIf="(isFavorite$ | async)"><strong>favorite!!!!!!!</strong>
+    <button (click)="delFavorite(loc)">Delete from favorite</button>
+</div>
+
+<div *ngIf="!(isFavorite$ | async)"><strong>NOT favorite!!!!!!!</strong>
+    <button (click)="addFavorite(loc)">add to favorite</button>
+</div>
+
+</ng-container>
+
+<app-one-day-weather *ngFor="let forecast of (fiveDayForecast$ | async).DailyForecasts" [forecast]="forecast"></app-one-day-weather>

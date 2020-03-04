@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { IDayForecast } from './../../interfaces/weather.interface';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-one-day-weather',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OneDayWeatherComponent implements OnInit {
 
+  @Input()
+  forecast: IDayForecast;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  getWeekDay(date) {
+    date = new Date(date);
+    const weekdays = new Array(
+      "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+    );
+    
+    return weekdays[date.getDay()];
+  }
 }

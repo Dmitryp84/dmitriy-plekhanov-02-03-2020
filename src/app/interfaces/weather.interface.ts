@@ -77,3 +77,7 @@ export interface IForecastShort {
     },
     DailyForecasts: IDayForecast[]
 }
+
+export interface ILocationEntities {
+    [key: string] : ILocation;
+  }

@@ -30,6 +30,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './store/reducers';
 import { LocationEffects } from './store/effects/location.effects';
+import { FavoriteCityComponent } from './commonComponents/favorite-city/favorite-city.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { LocationEffects } from './store/effects/location.effects';
     NotFoundComponent,
     CurrentWeatherComponent,
     OneDayWeatherComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    FavoriteCityComponent
   ],
   imports: [
     BrowserModule,

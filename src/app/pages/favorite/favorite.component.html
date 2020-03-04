@@ -1,2 +1,11 @@
-<p>favorite works!</p>
-<app-current-weather *ngFor="let i of [0,1,2,3,4]"></app-current-weather>
+<ng-container *ngIf="(favorites$ | async) as favorites; else nothing">
+<app-favorite-city *ngFor="let loc of favorites" 
+    [location]="loc" 
+    [currentCondition]="getCurrentCondition(loc) | async"
+    (delete)="delFavorite($event)"
+    (select)="setLocation($event)"
+    >
+</app-favorite-city>
+</ng-container>
+
+<ng-template #nothing><div>Nothing to show</div></ng-template>
