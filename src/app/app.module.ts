@@ -22,8 +22,15 @@ import { MatInputModule } from '@angular/material/input';
 import { AutocompleteComponent } from './commonComponents/autocomplete/autocomplete.component';
 
 import { WeatherService } from './services/weather.service';
+import { StorageService } from './services/storage.service';
 
 import { environment } from './../environments/environment';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers, metaReducers } from './store/reducers';
+import { LocationEffects } from './store/effects/location.effects';
+
 
 @NgModule({
   declarations: [
@@ -48,10 +55,20 @@ import { environment } from './../environments/environment';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([LocationEffects])
   ],
   providers: [
     WeatherService,
+    StorageService,
     { provide: 'API_KEY', useValue: environment.apiKey }
   ],
   bootstrap: [AppComponent]
