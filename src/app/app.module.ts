@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+
 import { AutocompleteComponent } from './commonComponents/autocomplete/autocomplete.component';
 
 import { WeatherService } from './services/weather.service';
@@ -31,6 +32,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './store/reducers';
 import { LocationEffects } from './store/effects/location.effects';
 import { FavoriteCityComponent } from './commonComponents/favorite-city/favorite-city.component';
+
+import { ToastrModule } from 'ngx-toastr';
+import { GlobalErrorHandler } from './global-error-handler';
 
 
 @NgModule({
@@ -58,6 +62,7 @@ import { FavoriteCityComponent } from './commonComponents/favorite-city/favorite
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -71,7 +76,8 @@ import { FavoriteCityComponent } from './commonComponents/favorite-city/favorite
   providers: [
     WeatherService,
     StorageService,
-    { provide: 'API_KEY', useValue: environment.apiKey }
+    { provide: 'API_KEY', useValue: environment.apiKey },
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
   bootstrap: [AppComponent]
 })
