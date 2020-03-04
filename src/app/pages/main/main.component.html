@@ -1,20 +1,28 @@
-<p>main works!</p>
 <app-autocomplete (onSelect)="onSelect($event)"></app-autocomplete>
 
-<app-current-weather [condition]="currentCondition$ | async" [location]="currentLocation$ | async"></app-current-weather>
-
-<h1>{{(currentCondition$ | async).WeatherText}}</h1>
-
-<ng-container *ngIf="(currentLocation$ | async) as loc">
+<ng-container *ngIf="
+  {
+    currentCondition: currentCondition$ | async,
+    currentLocation: currentLocation$ | async
+  } as observables">
     
-<div *ngIf="(isFavorite$ | async)"><strong>favorite!!!!!!!</strong>
-    <button (click)="delFavorite(loc)">Delete from favorite</button>
-</div>
+    <app-current-weather 
+    [condition]="observables.currentCondition" 
+    [location]="observables.currentLocation"></app-current-weather>
 
-<div *ngIf="!(isFavorite$ | async)"><strong>NOT favorite!!!!!!!</strong>
-    <button (click)="addFavorite(loc)">add to favorite</button>
-</div>
+    <h1>{{observables.currentCondition.WeatherText}}</h1>
+
+
+
+    <div *ngIf="(isFavorite$ | async)"><strong>favorite!!!!!!!</strong>
+    <button (click)="delFavorite(observables.currentLocation)">Delete from favorite</button>
+    </div>
+
+    <div *ngIf="!(isFavorite$ | async)"><strong>NOT favorite!!!!!!!</strong>
+    <button (click)="addFavorite(observables.currentLocation)">add to favorite</button>
+    </div>
 
 </ng-container>
+
 
 <app-one-day-weather *ngFor="let forecast of (fiveDayForecast$ | async).DailyForecasts" [forecast]="forecast"></app-one-day-weather>

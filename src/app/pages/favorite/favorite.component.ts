@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { State } from '../../store/reducers/index';
-import { DelFavorite, AddFavorite, SetLocation } from './../../store/actions/location.actions';
+import { DelFavorite, SetLocation } from './../../store/actions/location.actions';
 import { WeatherService } from './../../services/weather.service';
 import { ILocation, ICurrentConditionShort } from '@interfaces/weather.interface';
-import { selectSelectedLocation, selectFavorites} from './../../store/selectors/location.selector';
-import { Observable, of, combineLatest } from 'rxjs';
+import { selectFavorites} from './../../store/selectors/location.selector';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorite',
@@ -17,9 +17,12 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class FavoriteComponent implements OnInit {
 
   constructor(private store: Store<State>,
-    private weatherService: WeatherService) { }
+    private weatherService: WeatherService,
+    private router: Router) { }
 
   favorites$: Observable<ILocation[]>;
+
+  private unSubscribe: Subject<void> = new Subject<void>()
 
   ngOnInit(): void {
     this.favorites$ = this.store.pipe(
@@ -34,10 +37,16 @@ export class FavoriteComponent implements OnInit {
 
   setLocation(e) {
     this.store.dispatch(new SetLocation(e));
+    this.router.navigate(['/']);
   }
 
   delFavorite(e) {
     this.store.dispatch(new DelFavorite(e));
+  }
+
+  public ngOnDestroy(): void {
+    this.unSubscribe.next();
+    this.unSubscribe.complete();
   }
 
 }

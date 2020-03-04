@@ -6,7 +6,7 @@ import { DelFavorite, AddFavorite, SetLocation } from './../../store/actions/loc
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { State } from '../../store/reducers/index';
-import { Observable, of, combineLatest } from 'rxjs';
+import { Observable, of, combineLatest, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -24,8 +24,7 @@ export class MainComponent implements OnInit {
               private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    this.currentLocation$ = this.store.pipe(
-      select(selectSelectedLocation));
+    this.currentLocation$ = this.store.pipe(select(selectSelectedLocation));
 
     this.currentCondition$ = this.currentLocation$.pipe(
       switchMap((location) => this.weatherService.getCurrent(location.Key))
@@ -41,7 +40,7 @@ export class MainComponent implements OnInit {
           return of(true);
         }
         return of(false);
-      })
+      }),
     )
   }
 

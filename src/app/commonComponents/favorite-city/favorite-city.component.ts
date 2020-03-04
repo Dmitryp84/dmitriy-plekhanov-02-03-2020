@@ -1,19 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ILocation, ICurrentConditionShort } from '@interfaces/weather.interface';
+import { WeatherService } from './../../services/weather.service';
 
 @Component({
   selector: 'app-favorite-city',
   templateUrl: './favorite-city.component.html',
   styleUrls: ['./favorite-city.component.scss']
 })
-export class FavoriteCityComponent implements OnInit {
+export class FavoriteCityComponent implements OnInit, OnDestroy {
 
   @Input()
   location: ILocation;
-
-  @Input()
-  currentCondition: ICurrentConditionShort;
 
   @Output()
   delete: EventEmitter<ILocation> = new EventEmitter();
@@ -21,17 +20,25 @@ export class FavoriteCityComponent implements OnInit {
   @Output()
   select: EventEmitter<ILocation> = new EventEmitter();
 
-  constructor(private router: Router) { }
+  public condition: ICurrentConditionShort;
+  private unSubscribe: Subject<void> = new Subject<void>()
 
-  ngOnInit(): void { }
+  constructor(private weatherService: WeatherService) { }
+
+  ngOnInit(): void { 
+    this.weatherService.getCurrent(this.location.Key).pipe(takeUntil(this.unSubscribe)).subscribe(data => this.condition = data);
+  }
 
   onSelect() {
     this.select.emit(this.location);
-    this.router.navigate(['/']);
   }
 
   onDelete() {
     this.delete.emit(this.location);
   }
-  
+    
+  public ngOnDestroy(): void {
+    this.unSubscribe.next();
+    this.unSubscribe.complete();
+  }
 }
