@@ -24,4 +24,10 @@ export class OneDayWeatherComponent implements OnInit {
     
     return weekdays[date.getDay()];
   }
+
+  // TODO Use local icons
+  getIconLink(id) {
+    id = (id<10)? '0'+id : id;
+    return `http://developer.accuweather.com/sites/default/files/${id}-s.png`
+  }
 }

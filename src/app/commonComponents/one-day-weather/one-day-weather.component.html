@@ -1,3 +1,9 @@
-{{getWeekDay(forecast.Date)}}
-{{forecast.Temperature.Maximum.Value}}
-{{forecast.Temperature.Maximum.Unit}}
+<mat-card class="txt-center"> 
+    <mat-card-content>
+      <p class="mat-title">
+        {{getWeekDay(forecast.Date)}}
+      </p>
+      <img src="{{getIconLink(forecast.Day.Icon)}}" alt="{{forecast.Day.IconPhrase}}">
+      <p class="mat-h3">{{forecast.Temperature.Maximum.Value}}&nbsp;&deg;{{forecast.Temperature.Maximum.Unit}}</p>
+    </mat-card-content>
+  </mat-card>

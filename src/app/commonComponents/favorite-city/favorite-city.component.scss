@@ -1,0 +1,16 @@
+.close-btn {
+    cursor: pointer;
+    
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+mat-card-content {
+    cursor: pointer;
+    transition: transform .2s;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

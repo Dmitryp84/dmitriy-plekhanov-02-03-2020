@@ -1,28 +1,41 @@
-<app-autocomplete (onSelect)="onSelect($event)"></app-autocomplete>
+<div fxLayout="row" fxLayoutAlign="center">
+  <app-autocomplete (onSelect)="onSelect($event)"></app-autocomplete>
+</div>
 
 <ng-container *ngIf="
   {
     currentCondition: currentCondition$ | async,
     currentLocation: currentLocation$ | async
   } as observables">
+   <mat-card>
     
-    <app-current-weather 
-    [condition]="observables.currentCondition" 
-    [location]="observables.currentLocation"></app-current-weather>
+      <div fxLayout="row" fxLayoutAlign="space-between">
 
-    <h1>{{observables.currentCondition.WeatherText}}</h1>
+        <app-current-weather 
+        [condition]="observables.currentCondition" 
+        [location]="observables.currentLocation"></app-current-weather>
 
+        <div>
+          <button *ngIf="(isFavorite$ | async)" mat-stroked-button color="warn" aria-label="Delete from favorite" (click)="delFavorite(observables.currentLocation)">
+            <mat-icon>favorite</mat-icon> Delete from favorite
+          </button>
+          <button *ngIf="!(isFavorite$ | async)" mat-stroked-button color="primary" aria-label="Add to favorite" (click)="addFavorite(observables.currentLocation)">
+            <mat-icon>favorite</mat-icon> Add to favorite
+          </button>
+        </div>
 
-
-    <div *ngIf="(isFavorite$ | async)"><strong>favorite!!!!!!!</strong>
-    <button (click)="delFavorite(observables.currentLocation)">Delete from favorite</button>
-    </div>
-
-    <div *ngIf="!(isFavorite$ | async)"><strong>NOT favorite!!!!!!!</strong>
-    <button (click)="addFavorite(observables.currentLocation)">add to favorite</button>
-    </div>
-
+      </div>
+    
+      <mat-card-content fxLayout="row" fxLayoutAlign="center">
+        <h1 class="mat-display-3">{{observables.currentCondition.WeatherText}}</h1>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="space-between" fxLayout.xs="column">
+        <app-one-day-weather fxFlex="18%" fxFlex.xs="100%"
+        *ngFor="let forecast of (fiveDayForecast$ | async).DailyForecasts" 
+        [forecast]="forecast"></app-one-day-weather>
+      </mat-card-actions>
+  </mat-card>
 </ng-container>
 
 
-<app-one-day-weather *ngFor="let forecast of (fiveDayForecast$ | async).DailyForecasts" [forecast]="forecast"></app-one-day-weather>
+

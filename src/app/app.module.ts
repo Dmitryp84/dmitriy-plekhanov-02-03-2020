@@ -19,6 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AutocompleteComponent } from './commonComponents/autocomplete/autocomplete.component';
 
@@ -61,6 +63,8 @@ import { GlobalErrorHandler } from './global-error-handler';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
+    MatButtonModule,
     HttpClientModule,
     ToastrModule.forRoot(),
     StoreModule.forRoot(reducers, {

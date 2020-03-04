@@ -37,6 +37,12 @@ export class FavoriteCityComponent implements OnInit, OnDestroy {
     this.delete.emit(this.location);
   }
     
+  // TODO Use local icons
+  getIconLink(id) {
+    id = (id<10)? '0'+id : id;
+    return `http://developer.accuweather.com/sites/default/files/${id}-s.png`
+  }
+
   public ngOnDestroy(): void {
     this.unSubscribe.next();
     this.unSubscribe.complete();

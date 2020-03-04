@@ -1,3 +1,13 @@
-<p>current-weather works!</p>
-{{location.LocalizedName}}
-{{condition.Temperature.Metric.Value}} | {{condition.Temperature.Metric.Unit}}
+
+<mat-card>
+    <img src="{{getIconLink(condition.WeatherIcon)}}" alt="{{condition.WeatherText}}">
+
+    <mat-card-content>
+      
+        <div class="mat-h2">{{location.LocalizedName}}</div>
+        <div class="mat-h3">{{condition.Temperature.Metric.Value}} {{condition.Temperature.Metric.Unit}}</div>
+      
+    </mat-card-content>
+  </mat-card>
+
+

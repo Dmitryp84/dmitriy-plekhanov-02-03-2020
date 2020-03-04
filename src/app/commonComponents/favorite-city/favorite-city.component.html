@@ -1,7 +1,13 @@
-<div (click)="onSelect()">
-{{location.LocalizedName}}
-{{condition?.Temperature.Metric.Value}} {{condition?.Temperature.Metric.Unit}}
-<br>
-{{condition?.WeatherText}}
-</div>
-<div (click)="onDelete()">X</div>
+<mat-card class="txt-center">
+    <mat-card-header  fxLayout="row" fxLayoutAlign="space-between">
+      <mat-card-title></mat-card-title>
+      <div class="close-btn" (click)="onDelete()"><mat-icon>close</mat-icon></div>
+    </mat-card-header>
+    <mat-card-content (click)="onSelect()">
+        <h2>{{location.LocalizedName}}</h2>
+      <p>
+        {{condition?.Temperature.Metric.Value}}&nbsp;&deg;{{condition?.Temperature.Metric.Unit}}
+      </p>
+      <img src="{{getIconLink(condition.WeatherIcon)}}" alt="{{condition.WeatherText}}">
+    </mat-card-content>
+</mat-card>

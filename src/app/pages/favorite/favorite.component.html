@@ -1,10 +1,19 @@
-<ng-container *ngIf="(favorites$ | async) as favorites; else nothing">
-<app-favorite-city *ngFor="let loc of favorites" 
-    [location]="loc" 
-    (delete)="delFavorite($event)"
-    (select)="setLocation($event)"
-    >
-</app-favorite-city>
-</ng-container>
+<mat-card>
+    <mat-card-content fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="start">
+        <ng-container *ngIf="(favorites$ | async) as favorites">
+            <app-favorite-city *ngFor="let loc of favorites" 
+                [location]="loc" 
+                (delete)="delFavorite($event)"
+                (select)="setLocation($event)"
+                fxFlex="18%"
+                fxFlex.xs="100%"
+                style="margin: 1em;"
+                >
+            </app-favorite-city>
 
-<ng-template #nothing><div>Nothing to show</div></ng-template>
+            <div *ngIf="!favorites.length">Nothing to show</div>
+
+            </ng-container>
+
+    </mat-card-content>
+  </mat-card>
