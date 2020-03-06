@@ -22,8 +22,6 @@ export class FavoriteComponent implements OnInit {
 
   favorites$: Observable<ILocation[]>;
 
-  private unSubscribe: Subject<void> = new Subject<void>()
-
   ngOnInit(): void {
     this.favorites$ = this.store.pipe(
       select(selectFavorites),
@@ -45,8 +43,6 @@ export class FavoriteComponent implements OnInit {
   }
 
   public ngOnDestroy(): void {
-    this.unSubscribe.next();
-    this.unSubscribe.complete();
   }
 
 }
